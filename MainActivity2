@@ -1,0 +1,136 @@
+// main activity for the update view
+
+package com.example.harkkatyo3;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.StrictMode;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity2 extends AppCompatActivity {
+
+    private Button backButton;
+    private Button updateWeight;
+    private Button resetWater;
+    private Button updateWeightGoal;
+    private Button updateWaterGoal;
+
+    private EditText newWeight;
+    private EditText newGoalWeight;
+    private EditText newGoalWater;
+
+    private TextView weightView2;
+
+    int weightGoal;
+    int weight;
+    int water;
+    int waterGoal;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main2);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        backButton = (Button) findViewById(R.id.button);
+        updateWeight = (Button) findViewById(R.id.updateInfoButton);
+        resetWater = (Button) findViewById(R.id.resetWaterButton);
+        updateWaterGoal = (Button) findViewById(R.id.updateWaterGoalButton);
+        updateWeightGoal = (Button) findViewById(R.id.updateWeightGoalButton);
+
+        newWeight = (EditText) findViewById(R.id.newWeight);
+        newGoalWeight = (EditText) findViewById(R.id.newGoalWeight);
+        newGoalWater = (EditText) findViewById(R.id.newGoalWater);
+
+        weightView2 = (TextView) findViewById(R.id.weight3);
+
+        updateWeight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                weight = Integer.valueOf(newWeight.getText().toString());
+                setWeight(weight);
+
+            }
+        });
+
+        resetWater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                pressResetWater(water);
+            }
+        });
+
+        updateWeightGoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                weightGoal = Integer.valueOf(newGoalWeight.getText().toString());
+                setWeightGoal(weightGoal);
+            }
+        });
+
+        updateWaterGoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                waterGoal= Integer.valueOf(newGoalWater.getText().toString());
+                setWaterGoal(waterGoal);
+            }
+        });
+
+
+
+        backButton.setOnClickListener(v -> finish());
+
+        BmiCount bmi = new BmiCount();
+        bmi.calculateBmi();
+    }
+
+
+    public void pressResetWater(int wtr) {
+        // when the user resets the water count in the end of the day
+        // program saves the count of the day
+        // and the counter goes back to zero for the next day
+
+        // tästä toiseen activityyn tieto jotta nollataan vesi
+        WaterCount water = new WaterCount();
+        water.setWater(wtr);
+    }
+
+    public void setWeightGoal(int newWeight) {
+        // set a new weight goal
+        // tästä toiseen activityyn tieto
+
+    }
+
+    public void setWaterGoal(int waterGoal) {
+        // set a new water goal
+        // tästä toiseen activityyn tieto
+    }
+
+    public void setWeight(int wght) {
+        // user gives the newest weight info
+        // tästä toiseen activityyn tieto uudesta painosta
+        WeightEntry we = new WeightEntry();
+        we.setWeightHere(wght);
+        weightView2.setText(String.valueOf(wght));
+    }
+
+    public void getBmi() {
+        // calculates latest BMI from updated weight
+        BmiCount bmi = new BmiCount();
+        bmi.setWeight(weight);
+
+    }
+
+}
