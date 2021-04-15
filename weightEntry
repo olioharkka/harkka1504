@@ -1,0 +1,37 @@
+// weight entry class
+
+package com.example.harkkatyo3;
+
+import java.util.ArrayList;
+
+public class WeightEntry {
+
+
+
+    public WeightEntry() {
+
+    }
+
+    ArrayList<Integer> weightArray = new ArrayList<Integer>();
+
+    private int weight;
+
+    public int getWeight() {
+        // weight from User
+        return weight;
+
+    }
+
+    public void setWeightHere(int newWeight) {
+        // weight from the newest data
+        weight = newWeight;
+        weightArray.add(weight);
+    }
+
+    public ArrayList getWeightList() {
+        return weightArray;
+    }
+
+    // täältä kans se sinne jonnekki tiedostoo
+
+}
