@@ -1,0 +1,126 @@
+// main activity for the main view
+
+package com.example.harkkatyo3;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    private Button sButton;
+    private Button waterAdder;
+    private Button graphButton;
+    private Button logOut;
+
+    private TextView waterView;
+    private TextView weight1;
+    private TextView waterGoal;
+    private TextView weightGoal;
+    private TextView bmi;
+    private TextView bmiGoal;
+    private TextView weightFeedBack;
+    private TextView weightCategery;
+
+    private int waterCount = 0;
+    private int weightCount;
+    private int bmiCount;
+
+    private int bmiGoalCount;
+    private int weightGoalCount;
+    private int waterGoalCount;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        sButton = (Button) findViewById(R.id.scaleButton);
+        waterAdder = (Button) findViewById(R.id.addWater);
+        graphButton = (Button) findViewById(R.id.graph);
+        logOut = (Button) findViewById(R.id.logout);
+
+        waterView = (TextView) findViewById(R.id.waterAmount);
+        weight1 = (TextView) findViewById(R.id.weight2);
+        waterGoal = (TextView) findViewById(R.id.waterGoal);
+        weightGoal = (TextView) findViewById(R.id.weightGoal);
+        bmi = (TextView) findViewById(R.id.bmi);
+        bmiGoal = (TextView) findViewById(R.id.bmiGoal);
+        weightFeedBack = (TextView) findViewById(R.id.healthiness);
+        weightCategery = (TextView) findViewById(R.id.category);
+
+
+        waterAdder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                plusWater();
+                
+            }
+        });
+
+        sButton.setOnClickListener(v -> openActivity2());
+
+    }
+
+    public void openActivity2() {
+        // open the update info and goals activity
+        Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+        startActivity(intent);
+
+    }
+
+    public void plusWater() {
+        // add one water glass more to the count
+        waterCount += 1;
+        waterView.setText(String.valueOf(waterCount));
+    }
+
+    public void pressLogOut() {
+        // user logs out
+    }
+
+    public void createGraph() {
+        // create a graph of the saved water, bmi and weight data
+
+        GraphDrawer gd = new GraphDrawer();
+
+         /*
+        gd.setBmiForGraph(bmiCount);
+        gd.setWeightForGraph(weightCount);
+        gd.setWaterForGraph(waterCount);
+
+          */
+
+    }
+
+
+
+    public void setWeightMain(int wc) {
+        weightCount = wc;
+
+    }
+
+    public void setWeightGoalMain(int wegc) {
+        weightGoalCount = wegc;
+    }
+
+    public void setWaterGoalMain(int wagc) {
+        waterGoalCount = wagc;
+    }
+
+    public void setBmiMain(int bc) {
+        bmiCount = bc;
+    }
+
+    public void setBmiGoalMain(int bgc) {
+        bmiGoalCount = bgc;
+    }
+
+
+}
